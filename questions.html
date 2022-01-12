@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>JavaScript Quiz</title>
+</head>
+<body>
+    <header class="header">JavaScript Quiz</header>
+    
+    <!--QUESTION SCREEN (different file maybe???)-->
+    <section class="question-screen-wrapper">
+    
+        <div class="game-questions-wrapper">
+            <h1 id="display-question">
+                <!--QUESTION FROM JS HERE-->
+            </h1>
+        </div>
+    
+        <div class="game-question-options-wrapper">
+            <span>
+                <button class="button" id="answer-one"></button>
+                <label for="answer-one" class="answer-option" id="answer-one-label"></label>
+            </span>
+    
+            <span>
+                <button class="button" id="answer-two"></button>
+                <label for="answer-two" class="answer-option" id="answer-two-label"></label>
+            </span>
+    
+            <span>
+                <button class="button" id="answer-three"></button>
+                <label for="answer-three" class="answer-option" id="answer-three-label"></label>
+            </span>
+    
+            <span>
+                <button class="button" id="answer-four"></button>
+                <label for="answer-four" class="answer-option" id="answer-four-label"></label>
+            </span>
+        </div>
+    </section>
+
+    <section class="end-of-quiz-overlay">
+        <h1>Quiz Over!</h1>
+        
+        <div class="results-btn-wrapper">
+        <a href="./end.html">
+            <button class="button" id="view-result" href="./end.html">Go to Results</button>
+        </a>
+        </div>
+    </section>
+
+    <script src="./assets/script.js"></script>
+</body>
+</html>

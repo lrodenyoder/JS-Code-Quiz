@@ -69,3 +69,86 @@ button:hover{
 }
 /* END INDEX PAGE STYLE */
 
+
+/* BEGIN HIGH SCORE PAGE STYLE */
+.score-header {
+    text-align: center;
+    margin: 15px;
+}
+
+.highscore-list-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.hs-list {
+    background-color: lightsalmon;
+    padding: 0 150px;
+}
+
+.hs-li {
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.button-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px;
+}
+/* END HIGH SCORE PAGE STYLE */
+
+
+/* BEGIN END PAGE STYLE */
+.display-content-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* TIMEOUT STYLE */
+.time-out-end {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.game-over-details p {
+    text-align: center;
+    margin-top: 20px;
+    line-height: 1.4;
+}
+
+.game-over-header{
+    text-align: center;
+
+}
+
+#back-to-start {
+    margin: 20px;
+}
+
+/* SUBMIT SCORE STYLE */
+.enter-score-wrapper {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.score {
+    align-self: flex-start;
+}
+
+.form-group {
+    margin: 4px;
+}
+
+.form-group input {
+    padding: 10px 0 10px 5px;
+}
+
+.hs-form-wrapper {
+    display: flex;
+    align-items: center;
+}
+/* END HIGH SCORE PAGE STYLE */

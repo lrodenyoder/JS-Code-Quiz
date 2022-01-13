@@ -104,29 +104,17 @@ button:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-/* TIMEOUT STYLE */
-.time-out-end {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.game-over-details p {
-    text-align: center;
-    margin-top: 20px;
-    line-height: 1.4;
+    margin-top: 25px;
 }
 
 .game-over-header{
     text-align: center;
-
 }
 
 #back-to-start {
     margin: 20px;
 }
+
 
 /* SUBMIT SCORE STYLE */
 .enter-score-wrapper {
@@ -185,3 +173,16 @@ button:hover{
 .game-answers-wrapper button {
     margin: 10px;
 }
+
+/* ALL QUESTIONS ANSWERED & TIMEOUT STYLE */
+.end-of-quiz-overlay, .timeout-overlay {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.quiz-over, .time-up {
+    margin-bottom: 20px;
+}
+/* END QUESTION PAGE STYLE */

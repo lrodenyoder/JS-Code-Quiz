@@ -152,3 +152,36 @@ button:hover{
     align-items: center;
 }
 /* END HIGH SCORE PAGE STYLE */
+
+
+/* BEGIN QUESTION PAGE STYLE */
+.question-screen-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-wrapper {
+    border: 2px solid black;
+    width: 175px;
+    align-self: flex-end;
+}
+
+.question-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#display-question {
+    margin-bottom: 10px;
+}
+
+.game-answers-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-answers-wrapper button {
+    margin: 10px;
+}

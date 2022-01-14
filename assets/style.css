@@ -45,6 +45,7 @@ button:hover{
 .view-hs {
     text-align: left;
     margin: 5px;
+    text-shadow: 1px 1px 4px lightsalmon;
 }
 
 .view-hs:hover{
@@ -71,6 +72,10 @@ button:hover{
 
 
 /* BEGIN HIGH SCORE PAGE STYLE */
+.high-score-screen-wrapper {
+    display: none;
+}
+
 .score-header {
     text-align: center;
     margin: 15px;
@@ -100,21 +105,33 @@ button:hover{
 
 
 /* BEGIN END PAGE STYLE */
+.end-screen-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    display: none;
+}
+
+
 .display-content-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 25px;
 }
 
-.game-over-header{
+.score-wrapper p {
+    text-align: center;
+    margin-top: 20px;
+    line-height: 1.4;
+}
+
+.end-screen-header{
     text-align: center;
 }
 
 #back-to-start {
     margin: 20px;
 }
-
 
 /* SUBMIT SCORE STYLE */
 .enter-score-wrapper {
@@ -146,6 +163,7 @@ button:hover{
 .question-screen-wrapper {
     display: flex;
     flex-direction: column;
+    display: none;
 }
 
 .timer-wrapper {
@@ -180,6 +198,14 @@ button:hover{
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+}
+
+.end-of-quiz-overlay {
+    display: none;
+}
+
+.timeout-overlay {
+    display: none;
 }
 
 .quiz-over, .time-up {

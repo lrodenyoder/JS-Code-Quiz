@@ -11,13 +11,13 @@
 <body>
     <header class="header">JavaScript Quiz</header>
     
-        <!--START SCREEN-->
-        <main class="start-main">
-            <h1 class="view-hs">
-                <a href="./highscore.html">View High Scores</a>
+        <!--START SCREEN PAGE-->
+        <section class="start-main" id="begin-screen">
+            <h1 class="view-hs" id="view-hs">
+                    View High Scores
             </h1>
         
-            <section>
+            <article>
                 <h2 class="code-title">Coding Quiz Challenge</h2>
                 <p class="code-intro">
                     Try to answer the following code-related questions within the time limit. <br>
@@ -25,12 +25,137 @@
                 </p>
         
                 <div class="start-quiz-btn-wrapper">
-                    <a href="./questions.html">
                         <button type="button" id="start-game">Start Quiz</button>
+                </div>
+            </article>
+        </section>
+        <!--END START SCREEN PAGE-->
+
+
+        <!--QUESTION SCREEN PAGE-->
+        <section class="question-screen-wrapper" id="question-screen">
+        
+            <div class="timer-wrapper">
+                Time Remaining:   <span id="countdown">5</span>
+            </div>
+        
+            <article class="question-content-wrapper">
+                <div class="game-questions-wrapper">
+                    <h1 id="display-question">
+                        SAMPLE TEXT
+                    </h1>
+                </div>
+        
+                <div class="game-answers-wrapper">
+                    <span>
+                        <button class="button" id="answer-one">SAMPLE TEXT</button>
+                        <label for="answer-one" class="answer-option" id="answer-one-label"></label>
+                    </span>
+        
+                    <span>
+                        <button class="button" id="answer-two">SAMPLE TEXT</button>
+                        <label for="answer-two" class="answer-option" id="answer-two-label"></label>
+                    </span>
+        
+                    <span>
+                        <button class="button" id="answer-three">SAMPLE TEXT</button>
+                        <label for="answer-three" class="answer-option" id="answer-three-label"></label>
+                    </span>
+        
+                    <span>
+                        <button class="button" id="answer-four">SAMPLE TEXT</button>
+                        <label for="answer-four" class="answer-option" id="answer-four-label"></label>
+                    </span>
+                </div>
+            </article>
+        </section>
+        <!--END QUESTIONS SCREEN PAGE-->
+        
+        <!--ALL QUESTIONS ANSWERED PAGE-->
+        <section class="end-of-quiz-overlay">
+            <h1 class="quiz-over">Quiz Over!</h1>
+        
+            <div class="results-btn-wrapper">
+                <button class="button" id="view-result">Go to Results</button>
+            </div>
+        </section>
+        <!--END ALL QUESTIONS ANSWERED PAGE-->
+        
+        <!--TIME OUT PAGE-->
+        <section class="timeout-overlay" id="time-out">
+            <h1 class="time-up">Time up!</h1>
+        
+            <div class="to-beginning-btn-wrapper">
+                <a href="./index.html">
+                <button class="button" id="view-result">Try Again</button>
+                </a>
+            </div>
+        </section>
+        <!--END TIME OUT PAGE-->
+
+
+        <!--END SCREEN PAGE-->
+        <section class="end-screen-wrapper" id="end-screen">
+            <div class="display-content-wrapper">
+        
+                <h1 class="end-screen-header">Game Over!</h1>
+        
+                <div class="score-wrapper">
+                    <article class="enter-score-wrapper">
+                        <h2 class="score">
+                            Score: <span>FROM JS</span>
+                        </h2>
+        
+                        <form class="hs-form-wrapper">
+                            <div class="form-group">
+                                <input type="text" name="initials" placeholder="Enter Your Initials" />
+                            </div>
+        
+                            <div class="form-group">
+                                <button id="submit-hs" type="submit">Submit Score</button>
+                            </div>
+                        </form>
+                    </article>
+                    <!--ENTER SCORE TEST END-->
+                </div>
+        
+                <div class="to-beginning-btn-wrapper">
+                    <a href="./index.html">
+                        <button class="button" id="back-to-start">Back to Start</button>
                     </a>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+        <!--END END SCREEN PAGE-->
+            
+        <!-- HIGH SCORE PAGE -->
+        <section class="high-score-screen-wrapper" id="high-score">
+            <h1 class="score-header">High Scores</h1>
+        
+            <div class="highscore-list-wrapper">
+        
+            </div>
+        
+            <div class="button-wrapper">
+                <div class="to-beginning-btn-wrapper">
+        
+                    <a href="./index.html">
+                    <button class="button" id="return-to-start">
+                        Return to Start
+                    </button>
+                    </a>
+        
+                </div>
+        
+                <div class="clear-scores-btn-wrapper">
+                    <button class="button" id="clear-scores">
+                        Clear Scores
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!--END HIGH SCORE PAGE-->
+            
     <script src="./assets/script.js"></script>
 </body>
 </html>

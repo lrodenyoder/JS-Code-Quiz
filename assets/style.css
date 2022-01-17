@@ -200,6 +200,11 @@ ul li {
     margin: 10px 0 10px 0;
 }
 
+.next-question-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 /* ALL QUESTIONS ANSWERED & TIMEOUT STYLE */
 .end-of-quiz-overlay, .timeout-overlay {
     display:flex;

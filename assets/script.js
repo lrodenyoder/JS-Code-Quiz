@@ -1,8 +1,7 @@
 //PAGES THAT NEED JS: QUESTIONS, END, HS (ONLY CLEAR LOCAL STORAGE)
 //VARIABLES
 var timerEl = document.getElementById("countdown");
-var mainEl = document.getElementById("question-content-wrapper");
-var displayQuestionEl = document.getElementById("display-question");
+var entireQuestionEl = document.getElementById("question-content-wrapper");
 var answerOne = document.getElementById("answer-one");
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
@@ -15,7 +14,10 @@ var HSScreenEl = document.getElementById("high-score");
 var startGame = document.getElementById("start-game");
 var viewHS = document.getElementById("view-hs");
 var clearStorage = document.getElementById("clear-scores");
+var nextQuestion = document.getElementById("next-question");
 // var testButton = document.getElementById("answer-one");
+
+var indexNumber = 0;
 
 var questions = [
   {
@@ -25,8 +27,8 @@ var questions = [
   },
   {
     question: "choose second answer",
-    answers: ["wrong", "choose me", "wrong", "wrong"],
-    correctAnswer: "choose me",
+    answers: ["wrong", "choose me2", "wrong", "wrong"],
+    correctAnswer: "choose me2",
   },
 ];
 
@@ -37,6 +39,15 @@ var questions = [
 var clearLocalStorage = function () {
     localStorage.clear();
 };
+
+//RESET HTML FOR NEW QUESTIONS
+var reset = function () {
+    var deleteQuestion = document.getElementById("game-questions-wrapper");
+    deleteQuestion.remove();
+
+    var deleteAnswers = document.getElementById("answerList");
+    deleteAnswers.remove();
+}
 
 //FROM START SCREEN TO QUESTION SCREEN
 var goToQuestions = function () {
@@ -89,81 +100,107 @@ var timeOut = function () {
     }
 };
 
-// var handleQuestions = function () {
-//     if (questions.length === 0) {
-//         questionEndScreen(); //pop up end of questions page
-//         return;
-//     }
-
-//     for (var i = 0; i < questions.answers.length; i++) {
-//         //push questions as long as the array has questions left
-//     }
-
-
-// };
-
 //GET QUESTION/ANSWERS FROM QUESTIONS ARRAY AND PUSH TO SCREEN
 var createQuestion = function () {
-    var currentQuestion = questions.pop();
+    var currentQuestion = questions[indexNumber];
 
-    //push current question to <h1></h1>
-    displayQuestionEl.setAttribute("question", currentQuestion.question);
-    displayQuestionEl.textContent = currentQuestion.question;
+        //create div for question
+        var questionWrapper = document.createElement("div");
+        questionWrapper.setAttribute("id", "game-questions-wrapper");
+
+        //create <h1>
+        var displayQuestionEl = document.createElement("h1")
+        displayQuestionEl.setAttribute("id", "display-question");
+
+        //push current question to <h1></h1>
+        displayQuestionEl.setAttribute("question", currentQuestion.question);
+        displayQuestionEl.textContent = currentQuestion.question;
+
+        questionWrapper.appendChild(displayQuestionEl);
+        entireQuestionEl.appendChild(questionWrapper);
     
 
-    
+        // //create list as container for answers
+        var gameQuestionsWrapper = document.createElement("div");
+        gameQuestionsWrapper.setAttribute("id", "gameQuestionsWrapper");
 
+        var answerList = document.createElement("ul");
+        answerList.setAttribute("id", "answerList");
 
-    // //create list as container for answers
-    var answerList = document.createElement("ul");
-    answerList.setAttribute("id", "choiceBox");
-    mainEl.appendChild(answerList);
+        gameQuestionsWrapper.appendChild(answerList)
+        entireQuestionEl.appendChild(gameQuestionsWrapper);
 
-    // //create list items to contain answers and push them to the screen
-    for (var i = 0; i < currentQuestion.answers.length; i++) {
-        var listItem = document.createElement("li");
+        // //create list items to contain answers and push them to the screen
+        for (var i = 0; i < currentQuestion.answers.length; i++) {
+            var listItem = document.createElement("li");
 
-        var radioButton = document.createElement("INPUT");
-        radioButton.setAttribute("type", "radio")
-        radioButton.setAttribute("id", "answer-" + i);
-        radioButton.setAttribute("name", "answer-" + i);
+            var radioButton = document.createElement("INPUT");
+            radioButton.setAttribute("type", "radio")
+            radioButton.setAttribute("class", "radio-button")
+            radioButton.setAttribute("id", "answer-" + i);
+            radioButton.setAttribute("name", "answer");
+            radioButton.setAttribute("value", currentQuestion.answers[i]);
 
-        var radioLabel = document.createElement("LABEL");
-        radioLabel.setAttribute("for", "answer-" + i);
-        radioLabel.setAttribute("id", "answer-" + i + "-label");
-        radioLabel.setAttribute("answer-value", currentQuestion.answers[i]);
-       
-        radioLabel.innerHTML = currentQuestion.answers[i];
+            var radioLabel = document.createElement("LABEL");
+            radioLabel.setAttribute("for", "answer-" + i);
+            radioLabel.setAttribute("class", "radio-label")
+            radioLabel.setAttribute("id", "answer-" + i + "-label");
+            radioLabel.setAttribute("value", currentQuestion.answers[i]);
+            radioLabel.innerHTML = currentQuestion.answers[i];
        
         
-        listItem.appendChild(radioButton);
-        listItem.appendChild(radioLabel);
-        answerList.appendChild(listItem);
-    }
-
-    answerList.addEventListener("click", function () {
-        checkAnswer(currentQuestion);
-    });
+            listItem.appendChild(radioButton);
+            listItem.appendChild(radioLabel);
+            answerList.appendChild(listItem);  
+        }
 };
 
-var checkAnswer = function (event) {
+var handleNextQuestion = function () {
+    
+    checkAnswer();
+
+
+
+
+
+
+
+    reset();
+    
+     createQuestion();
+};
+
+var checkAnswer = function () {
     debugger;
-    // var x = event.currentTarget;
-    // console.log(x);
+    var currentQuestion = questions[indexNumber];
+    var currentCorrectAnswer = currentQuestion.correctAnswer;
+    var answers = document.getElementsByName("answer")
+    let correctOption = null;
 
-    console.log(event.currentTarget);
+    console.log(currentCorrectAnswer);
 
-    if (x.match(".li")) {
-        var selectedAnswer = x.textContent;
-
-        if (selectedAnswer === curQuest.CorrectAnswer) {
-            createQuestion();
-        } else {
-            timerEl -= 5;
+    answers.forEach((answer) => {
+        if (answer.value === currentCorrectAnswer) {
+            correctOption = answer.labels[0].id /*how tf does this work*/
         }
+    })
+
+    //IF NOTHING IS SELECTED
+    if (answers[0].checked === false && answers[1] === false && answers[2] === false && answers[3] === false) {
+        window.alert("choose an option")
     }
 
-    createQuestion();
+    answers.forEach((answer) => {
+        if (answer.checked === true && answer.value === currentCorrectAnswer) {
+            console.log("correct")
+            indexNumber++;
+        } else if (answer.checked && answer.value !== currentCorrectAnswer) {
+            console.log("wrong")
+            timerEl -= 5;
+            indexNumber++;
+        }
+    })
+   
 };
 
 //FROM ALL QUESTIONS ANSWERED SCREEN TO END SCREEN (change to be from all answers to end screen)
@@ -191,6 +228,7 @@ clearStorage.addEventListener("click", clearLocalStorage);
 startGame.addEventListener("click", goToQuestions);
 // testButton.addEventListener("click", goToEnd);
 viewHS.addEventListener("click", goToHS);
+nextQuestion.addEventListener("click", handleNextQuestion);
 
 
 

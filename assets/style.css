@@ -192,6 +192,14 @@ button:hover{
     margin: 10px;
 }
 
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    margin: 10px 0 10px 0;
+}
+
 /* ALL QUESTIONS ANSWERED & TIMEOUT STYLE */
 .end-of-quiz-overlay, .timeout-overlay {
     display:flex;

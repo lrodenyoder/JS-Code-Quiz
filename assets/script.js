@@ -3,7 +3,8 @@
 var timerEl = document.getElementById("countdown");
 var entireQuestionEl = document.getElementById("question-content-wrapper");
 var answerOne = document.getElementById("answer-one");
-var timeLeft = 50;
+var timeLeft = 5;
+
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
 var questionScreenEl = document.getElementById("question-screen");
@@ -92,13 +93,8 @@ var startTimer = function () {
 
 //GO TO TIME OUT PAGE WHEN TIMER = 0
 var timeOut = function () {
-    if (questionScreenEl.style.display === "none") {
-        questionScreenEl.style.display = "flex";
-        timeOutScreenEl.style.display = "none"
-    } else {
         questionScreenEl.style.display = "none";
         timeOutScreenEl.style.display = "flex";
-    }
 };
 
 //GET QUESTION/ANSWERS FROM QUESTIONS ARRAY AND PUSH TO SCREEN
@@ -156,28 +152,21 @@ var createQuestion = function () {
         }
 };
 
-var handleNextQuestion = function () {
-    
+//SETS UP NEXT QUESTION
+var handleNextQuestion = function () {  
     checkAnswer();
-
-
-
-
-
-
-
-    
     
     if (indexNumber > questions.length - 1) {
         goToEnd();
-    } else {
+    }
+    
+    if (timeLeft > 0) {
         reset();
         createQuestion();
     }
-
-    
 };
 
+//CHECKS IF ANSWER IS RIGHT OR WRONG
 var checkAnswer = function () {
   
     var currentQuestion = questions[indexNumber];
@@ -214,27 +203,28 @@ var checkAnswer = function () {
 
 //FROM ALL QUESTIONS ANSWERED SCREEN TO END SCREEN
 var goToEnd = function () {
-    if (questionScreenEl.style.display === "none") {
-        questionScreenEl.style.display = "flex";
-        questionsFinishedEl.style.display = "none";
-    } else {
-        questionScreenEl.style.display = "none";
-        questionsFinishedEl.style.display = "flex";
-    }
+    
+    questionScreenEl.style.display = "none";
+    questionsFinishedEl.style.display = "flex";
+    
+    sendScore();
 };
 
 //FROM END SCREEN TO RESULTS SCREEN
 var goToResults = function () {
-  questionsFinishedEl.style.display = "none";
-  endScreenEl.style.display = "flex";
+    questionsFinishedEl.style.display = "none";
+    endScreenEl.style.display = "flex";
 };
 
+//PUSH SCORE TO SCREEN
+var sendScore = function () {
+    var score = timeLeft;
 
+    var scoreLog = document.getElementById("score");
+    scoreLog.textContent = "Score: " + score;
 
-
-
-
-
+    console.log(score);
+};
 
 
 
@@ -245,6 +235,8 @@ startGame.addEventListener("click", goToQuestions);
 viewHS.addEventListener("click", goToHS);
 nextQuestion.addEventListener("click", handleNextQuestion);
 toResults.addEventListener("click", goToResults);
+
+//TO FIX: 1. WHEN ALL QUESTIONS ANSWERED, TIME KEEPS COUNTING AND WHEN TIME = 0, TIMEOUT() RUNS. 2. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 3. IF NOTHING IS SELECTED, POP UP??
 
 
 

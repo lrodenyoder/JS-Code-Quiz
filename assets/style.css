@@ -140,8 +140,9 @@ button:hover{
     flex-direction: column;
 }
 
-.score {
-    align-self: flex-start;
+#score {
+    align-self: center;
+    margin: 10px;
 }
 
 .form-group {

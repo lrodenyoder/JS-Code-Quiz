@@ -15,6 +15,7 @@ var startGame = document.getElementById("start-game");
 var viewHS = document.getElementById("view-hs");
 var clearStorage = document.getElementById("clear-scores");
 var nextQuestion = document.getElementById("next-question");
+var toResults = document.getElementById("view-result");
 // var testButton = document.getElementById("answer-one");
 
 var indexNumber = 0;
@@ -47,7 +48,7 @@ var reset = function () {
 
     var deleteAnswers = document.getElementById("answerList");
     deleteAnswers.remove();
-}
+};
 
 //FROM START SCREEN TO QUESTION SCREEN
 var goToQuestions = function () {
@@ -165,13 +166,20 @@ var handleNextQuestion = function () {
 
 
 
-    reset();
     
-     createQuestion();
+    
+    if (indexNumber > questions.length - 1) {
+        goToEnd();
+    } else {
+        reset();
+        createQuestion();
+    }
+
+    
 };
 
 var checkAnswer = function () {
-    debugger;
+  
     var currentQuestion = questions[indexNumber];
     var currentCorrectAnswer = currentQuestion.correctAnswer;
     var answers = document.getElementsByName("answer")
@@ -185,7 +193,7 @@ var checkAnswer = function () {
         }
     })
 
-    //IF NOTHING IS SELECTED
+    //IF NOTHING IS SELECTED. NEED TO FIX
     if (answers[0].checked === false && answers[1] === false && answers[2] === false && answers[3] === false) {
         window.alert("choose an option")
     }
@@ -204,15 +212,20 @@ var checkAnswer = function () {
 };
 
 //FROM ALL QUESTIONS ANSWERED SCREEN TO END SCREEN (change to be from all answers to end screen)
-// var goToEnd = function () {
-//     if (questionScreenEl.style.display === "none") {
-//         questionScreenEl.style.display = "flex";
-//         questionsAnsweredEl.style.display = "none"
-//     } else {
-//         questionScreenEl.style.display = "none";
-//         questionsAnswered.style.display = "flex";
-//     }
-// };
+var goToEnd = function () {
+    if (questionScreenEl.style.display === "none") {
+        questionScreenEl.style.display = "flex";
+        questionsFinishedEl.style.display = "none";
+    } else {
+        questionScreenEl.style.display = "none";
+        questionsFinishedEl.style.display = "flex";
+    }
+};
+
+var goToResults = function () {
+  questionsFinishedEl.style.display = "none";
+  endScreenEl.style.display = "flex";
+};
 
 
 
@@ -229,6 +242,8 @@ startGame.addEventListener("click", goToQuestions);
 // testButton.addEventListener("click", goToEnd);
 viewHS.addEventListener("click", goToHS);
 nextQuestion.addEventListener("click", handleNextQuestion);
+toResults.addEventListener("click", goToResults);
+
 
 
 

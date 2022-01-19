@@ -3,7 +3,11 @@
 var timerEl = document.getElementById("countdown");
 var entireQuestionEl = document.getElementById("question-content-wrapper");
 var answerOne = document.getElementById("answer-one");
-var timeLeft = 5;
+var timeLeft = 50;
+var playerScore = [];
+var HSidCounter = 0;
+var scoreListEl = document.getElementById("scores");
+var HSarray = [];
 
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
@@ -18,7 +22,9 @@ var viewHS = document.getElementById("view-hs");
 var clearStorage = document.getElementById("clear-scores");
 var nextQuestion = document.getElementById("next-question");
 var toResults = document.getElementById("view-result");
-// var testButton = document.getElementById("answer-one");
+var submitScore = document.getElementById("submit-hs");
+var backToStart = document.getElementById("back-to-start");
+
 
 var indexNumber = 0;
 
@@ -86,6 +92,10 @@ var startTimer = function () {
             clearInterval(timeInterval);
 
             timeOut();
+        }
+
+        if (indexNumber > questions.length - 1) {
+          clearInterval(timeInterval);
         }
 
     }, 1000);
@@ -217,13 +227,88 @@ var goToResults = function () {
 };
 
 //PUSH SCORE TO SCREEN
-var sendScore = function () {
+var sendScore = function (scoreObj) {
     var score = timeLeft;
 
     var scoreLog = document.getElementById("score");
     scoreLog.textContent = "Score: " + score;
 
+    scoreObj = score;
+
+    playerScore.push(scoreObj);
+
     console.log(score);
+};
+
+
+
+//SUBMIT HIGH SCORE
+var createHS = function (highScoreObj) {
+    // event.preventDefault();
+    //var playerInitials = document.querySelector("input[name='initials']").value;
+
+    //document.querySelector("input[name='initials']").value = "";
+
+    // var highScoreObj = {
+    //     score: playerScore,
+    //     initials: playerInitials,
+    //     id: HSidCounter
+    // };
+
+    // console.log(playerInitials);
+
+    // localStorage.setItem("HS submit", JSON.stringify(highScoreObj));
+
+    // HSidCounter++;
+
+    // indexNumber = 0;
+    //location.reload();
+    //toStart();
+
+        var taskItemEl = document.createElement("li");
+        taskItemEl.setAttribute("HS-id", HSidCounter);
+        taskItemEl.textContent = playerScore;
+        scoreListEl.appendChild(taskItemEl);
+
+    highScoreObj.id = HSidCounter;
+
+    HSarray.push(highScoreObj);
+
+    saveHighScore();
+
+    HSidCounter++;
+};
+
+var saveHighScore = function () {
+  localStorage.setItem("HS submit", JSON.stringify(HSarray));
+};
+
+var toStart = function () {
+    beginScreenEl.style.display = "block";
+    endScreenEl.style.display = "none";
+    indexNumber = 0;
+};
+
+// var loadScores = function () {
+//     var savedScores = localStorage.getItem("HS submit");
+
+//     if (!savedScores) {
+//         return false;
+//     }
+
+//     savedScores = JSON.parse(savedScores);
+
+//     //loop through savedScores array to create high scores
+// };
+
+// var createHighScores = function () {
+//     var HSli = document.createElement("li");
+//     HSli.className = "HS-item";
+//     HSli.setAttribute("HS-id", HSidCounter)
+// };
+
+var resetTimeLeft = function () {
+    timeLeft = 50;
 };
 
 
@@ -231,13 +316,25 @@ var sendScore = function () {
 //EVENT LISTENERS
 clearStorage.addEventListener("click", clearLocalStorage);
 startGame.addEventListener("click", goToQuestions);
-// testButton.addEventListener("click", goToEnd);
 viewHS.addEventListener("click", goToHS);
 nextQuestion.addEventListener("click", handleNextQuestion);
 toResults.addEventListener("click", goToResults);
+submitScore.addEventListener("click", function (event) {
+    event.preventDefault();
 
-//TO FIX: 1. WHEN ALL QUESTIONS ANSWERED, TIME KEEPS COUNTING AND WHEN TIME = 0, TIMEOUT() RUNS. 2. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 3. IF NOTHING IS SELECTED, POP UP??
+    var initialInput = document.querySelector("input[name='initials']").value;
+
+    var highScoreObj = {
+      score: playerScore,
+      initials: initialInput,
+    };
+
+    createHS(highScoreObj);
+});
+startGame.addEventListener("click", resetTimeLeft)
+backToStart.addEventListener("click", toStart);
 
 
+//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 2.HSidCounter resets on page refresh. 3. CREATE HIGHSCORE LIST
 
 

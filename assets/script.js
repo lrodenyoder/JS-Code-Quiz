@@ -47,6 +47,7 @@ var questions = [
 //CLEAR LOCAL STORAGE
 var clearLocalStorage = function () {
     localStorage.clear();
+    location.reload();
 };
 
 //RESET HTML FOR NEW QUESTIONS
@@ -266,8 +267,9 @@ var createHS = function (highScoreObj) {
     //toStart();
 
         var taskItemEl = document.createElement("li");
-        taskItemEl.setAttribute("HS-id", HSidCounter);
-        taskItemEl.textContent = playerScore;
+    taskItemEl.setAttribute("data-hs-id", HSidCounter);
+    taskItemEl.className = "high-score";
+        taskItemEl.textContent = highScoreObj.score;
         scoreListEl.appendChild(taskItemEl);
 
     highScoreObj.id = HSidCounter;
@@ -282,6 +284,20 @@ var createHS = function (highScoreObj) {
 var saveHighScore = function () {
   localStorage.setItem("HS submit", JSON.stringify(HSarray));
 };
+
+var loadHighScore = function () {
+    savedHSarray = localStorage.getItem("HS submit");
+
+    if (!savedHSarray) {
+        return false;
+    }
+
+    savedHSarray = JSON.parse(savedHSarray);
+
+    for (var i = 0; i < savedHSarray.length; i++) {
+        createHS(savedHSarray[i]);
+    }
+}
 
 var toStart = function () {
     beginScreenEl.style.display = "block";
@@ -304,7 +320,7 @@ var toStart = function () {
 // var createHighScores = function () {
 //     var HSli = document.createElement("li");
 //     HSli.className = "HS-item";
-//     HSli.setAttribute("HS-id", HSidCounter)
+//     HSli.setAttribute("data-hs-id", HSidCounter)
 // };
 
 var resetTimeLeft = function () {
@@ -334,6 +350,7 @@ submitScore.addEventListener("click", function (event) {
 startGame.addEventListener("click", resetTimeLeft)
 backToStart.addEventListener("click", toStart);
 
+loadHighScore();
 
 //TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 2.HSidCounter resets on page refresh. 3. CREATE HIGHSCORE LIST
 

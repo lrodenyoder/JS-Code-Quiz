@@ -1,14 +1,12 @@
-//PAGES THAT NEED JS: QUESTIONS, END, HS (ONLY CLEAR LOCAL STORAGE)
 //VARIABLES
 var timerEl = document.getElementById("countdown");
 var entireQuestionEl = document.getElementById("question-content-wrapper");
-var answerOne = document.getElementById("answer-one");
+var scoreListEl = document.getElementById("scores");
 var timeLeft = 50;
 var playerScore = [];
 var HSidCounter = 0;
-var scoreListEl = document.getElementById("scores");
 var HSarray = [];
-
+var indexNumber = 0;
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
 var questionScreenEl = document.getElementById("question-screen");
@@ -24,10 +22,7 @@ var nextQuestion = document.getElementById("next-question");
 var toResults = document.getElementById("view-result");
 var submitScore = document.getElementById("submit-hs");
 var backToStart = document.getElementById("back-to-start");
-
-
-var indexNumber = 0;
-
+//question array
 var questions = [
   {
     question: "choose first answer",
@@ -61,13 +56,8 @@ var reset = function () {
 
 //FROM START SCREEN TO QUESTION SCREEN
 var goToQuestions = function () {
-    if (beginScreenEl.style.display === "none") {
-        beginScreenEl.style.display = "block";
-        questionScreenEl.style.display = "none";
-    } else {
-        beginScreenEl.style.display = "none";
-        questionScreenEl.style.display = "flex";
-    }
+    beginScreenEl.style.display = "none";
+    questionScreenEl.style.display = "flex";
 
     createQuestion();
     startTimer();
@@ -185,12 +175,10 @@ var checkAnswer = function () {
     var answers = document.getElementsByName("answer")
     let correctOption = null;
 
-    console.log(currentCorrectAnswer);
-
     //GETS CORRECT ANSWER FROM ARRAY
     answers.forEach((answer) => {
         if (answer.value === currentCorrectAnswer) {
-            correctOption = answer.labels[0].id /*how tf does this work*/
+            correctOption = answer.labels[0].id;
         }
     })
 
@@ -202,10 +190,8 @@ var checkAnswer = function () {
     //RIGHT OR WRONG
     answers.forEach((answer) => {
         if (answer.checked === true && answer.value === currentCorrectAnswer) {
-            console.log("correct")
             indexNumber++;
         } else if (answer.checked && answer.value !== currentCorrectAnswer) {
-            console.log("wrong")
             timeLeft -= 5;
             indexNumber++;
         }
@@ -237,40 +223,15 @@ var sendScore = function (scoreObj) {
     scoreObj = score;
 
     playerScore.push(scoreObj);
-
-    console.log(score);
 };
 
-
-
-//SUBMIT HIGH SCORE
+//CREATE HIGH SCORE
 var createHS = function (highScoreObj) {
-    // event.preventDefault();
-    //var playerInitials = document.querySelector("input[name='initials']").value;
-
-    //document.querySelector("input[name='initials']").value = "";
-
-    // var highScoreObj = {
-    //     score: playerScore,
-    //     initials: playerInitials,
-    //     id: HSidCounter
-    // };
-
-    // console.log(playerInitials);
-
-    // localStorage.setItem("HS submit", JSON.stringify(highScoreObj));
-
-    // HSidCounter++;
-
-    // indexNumber = 0;
-    //location.reload();
-    //toStart();
-
-        var taskItemEl = document.createElement("li");
-    taskItemEl.setAttribute("data-hs-id", HSidCounter);
-    taskItemEl.className = "high-score";
-        taskItemEl.textContent = highScoreObj.score;
-        scoreListEl.appendChild(taskItemEl);
+    var HSItemEl = document.createElement("li");
+    HSItemEl.setAttribute("data-hs-id", HSidCounter);
+    HSItemEl.className = "high-score";
+    HSItemEl.textContent = highScoreObj.score;
+    scoreListEl.appendChild(HSItemEl);
 
     highScoreObj.id = HSidCounter;
 
@@ -281,10 +242,12 @@ var createHS = function (highScoreObj) {
     HSidCounter++;
 };
 
+//SAVE HS TO LOCAL STORAGE
 var saveHighScore = function () {
   localStorage.setItem("HS submit", JSON.stringify(HSarray));
 };
 
+//LOAD HIGH SCORES FOR PERSISTANCE 
 var loadHighScore = function () {
     savedHSarray = localStorage.getItem("HS submit");
 
@@ -299,30 +262,15 @@ var loadHighScore = function () {
     }
 }
 
+//TO BEGINNING SCREEN
 var toStart = function () {
     beginScreenEl.style.display = "block";
     endScreenEl.style.display = "none";
     indexNumber = 0;
+    playerScore = [];
 };
 
-// var loadScores = function () {
-//     var savedScores = localStorage.getItem("HS submit");
-
-//     if (!savedScores) {
-//         return false;
-//     }
-
-//     savedScores = JSON.parse(savedScores);
-
-//     //loop through savedScores array to create high scores
-// };
-
-// var createHighScores = function () {
-//     var HSli = document.createElement("li");
-//     HSli.className = "HS-item";
-//     HSli.setAttribute("data-hs-id", HSidCounter)
-// };
-
+//RESET TIME LEFT FOR NEW GAME
 var resetTimeLeft = function () {
     timeLeft = 50;
 };
@@ -352,6 +300,5 @@ backToStart.addEventListener("click", toStart);
 
 loadHighScore();
 
-//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 2.HSidCounter resets on page refresh. 3. CREATE HIGHSCORE LIST
-
+//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 2. ADD IF STATEMENT IF NO RADIO BUTTONS ARE CLICKED. 3. ADD IF STATEMENT IF NO INITIALS ARE ENTERED. 4. CLEAR INITIALS AND SCORE AFTER SUBMIT. 5. ADD IF STATEMENT IF NO SCORE IS PRESENT
 

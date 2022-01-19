@@ -206,17 +206,24 @@ ul li {
     justify-content: center;
 }
 
-.choose-option-wrapper {
+.choose-option-wrapper, .right-option-wrapper, .wrong-option-wrapper {
     display: flex;
     justify-content: center;
     margin: 20px 0;
     display: none;
 }
 
-.choose-option-wrapper p {
+.choose-option-wrapper p, .wrong-option-wrapper p{
     color: red;
     font-weight: bold;
 }
+
+.right-option-wrapper p{
+    color: green;
+    font-weight: bold;
+}
+
+
 
 /* ALL QUESTIONS ANSWERED & TIMEOUT STYLE */
 .end-of-quiz-overlay, .timeout-overlay {

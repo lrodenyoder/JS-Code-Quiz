@@ -8,6 +8,8 @@ var HSidCounter = 0;
 var HSarray = [];
 var indexNumber = 0;
 var chooseOption = document.querySelector(".choose-option-wrapper");
+var rightOption = document.querySelector(".right-option-wrapper");
+var wrongOption = document.querySelector(".wrong-option-wrapper");
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
 var questionScreenEl = document.getElementById("question-screen");
@@ -50,13 +52,17 @@ var reset = function () {
     deleteQuestion.remove();
 
     var deleteAnswers = document.getElementById("answerList");
-    deleteAnswers.remove();
+    deleteAnswers.remove();  
 };
 
 //FROM START SCREEN TO QUESTION SCREEN
 var goToQuestions = function () {
     beginScreenEl.style.display = "none";
     questionScreenEl.style.display = "flex";
+
+    
+    rightOption.style.display = "none";
+    wrongOption.style.display = "none";
 
     createQuestion();
     startTimer();
@@ -192,10 +198,12 @@ var checkAnswer = function () {
         if (answer.checked === true && answer.value === currentCorrectAnswer) {
             indexNumber++;
             chooseOption.style.display = "none";
+            rightOption.style.display = "flex";
         } else if (answer.checked && answer.value !== currentCorrectAnswer) {
             timeLeft -= 5;
             indexNumber++;
             chooseOption.style.display = "none";
+            wrongOption.style.display = "flex";
         }
     })
 };
@@ -261,9 +269,17 @@ var loadHighScore = function () {
 
     savedHSarray = JSON.parse(savedHSarray);
 
+    //SORTS HS LIST FROM HIGHEST TO LOWEST
+    savedHSarray.sort(function (a, b) {
+      return b.score - a.score;
+    });
+
+    //PUSHES SAVED ARRAY THROUGH CREATEHS()
     for (var i = 0; i < savedHSarray.length; i++) {
         createHS(savedHSarray[i]);
     }
+
+    
 };
 
 //TO BEGINNING SCREEN
@@ -305,7 +321,8 @@ submitScore.addEventListener("click", function (event) {
         document.querySelector("input[name='initials']").value = "";
 
         alert("Thank You for Playing!");
-        toStart();
+        //toStart();
+        location.reload();
     }
 });
 startGame.addEventListener("click", resetTimeLeft);
@@ -313,5 +330,5 @@ backToStart.addEventListener("click", toStart);
 
 loadHighScore();
 
-//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED(doesn't break the game). 2. RIGHT OR WRONG NOTIFICATION AFTER CHOOSING ANSWER. 3. ORDER HIGH SCORE BY HIGHEST TO LOWEST
+//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED(doesn't break the game).
 

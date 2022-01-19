@@ -206,6 +206,18 @@ ul li {
     justify-content: center;
 }
 
+.choose-option-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    display: none;
+}
+
+.choose-option-wrapper p {
+    color: red;
+    font-weight: bold;
+}
+
 /* ALL QUESTIONS ANSWERED & TIMEOUT STYLE */
 .end-of-quiz-overlay, .timeout-overlay {
     display:flex;

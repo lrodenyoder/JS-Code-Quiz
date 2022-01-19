@@ -7,6 +7,7 @@ var playerScore = [];
 var HSidCounter = 0;
 var HSarray = [];
 var indexNumber = 0;
+var chooseOption = document.querySelector(".choose-option-wrapper");
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
 var questionScreenEl = document.getElementById("question-screen");
@@ -35,8 +36,6 @@ var questions = [
     correctAnswer: "choose me2",
   },
 ];
-
-
 
 //FUNCTIONS
 //CLEAR LOCAL STORAGE
@@ -182,18 +181,21 @@ var checkAnswer = function () {
         }
     })
 
-    //IF NOTHING IS SELECTED. NEED TO FIX
-    if (answers[0].checked === false && answers[1] === false && answers[2] === false && answers[3] === false) {
-        window.alert("choose an option")
+
+    //IF NOTHING IS SELECTED
+    if (answers[0].checked == false && answers[1].checked == false && answers[2].checked == false && answers[3].checked == false) {
+        chooseOption.style.display = "flex";
     }
 
     //RIGHT OR WRONG
     answers.forEach((answer) => {
         if (answer.checked === true && answer.value === currentCorrectAnswer) {
             indexNumber++;
+            chooseOption.style.display = "none";
         } else if (answer.checked && answer.value !== currentCorrectAnswer) {
             timeLeft -= 5;
             indexNumber++;
+            chooseOption.style.display = "none";
         }
     })
 };
@@ -230,7 +232,7 @@ var createHS = function (highScoreObj) {
     var HSItemEl = document.createElement("li");
     HSItemEl.setAttribute("data-hs-id", HSidCounter);
     HSItemEl.className = "high-score";
-    HSItemEl.textContent = highScoreObj.score;
+    HSItemEl.textContent = highScoreObj.initials + "............" + highScoreObj.score;
     scoreListEl.appendChild(HSItemEl);
 
     highScoreObj.id = HSidCounter;
@@ -240,6 +242,8 @@ var createHS = function (highScoreObj) {
     saveHighScore();
 
     HSidCounter++;
+
+   
 };
 
 //SAVE HS TO LOCAL STORAGE
@@ -260,7 +264,7 @@ var loadHighScore = function () {
     for (var i = 0; i < savedHSarray.length; i++) {
         createHS(savedHSarray[i]);
     }
-}
+};
 
 //TO BEGINNING SCREEN
 var toStart = function () {
@@ -293,12 +297,21 @@ submitScore.addEventListener("click", function (event) {
       initials: initialInput,
     };
 
-    createHS(highScoreObj);
+    if (initialInput == "" || initialInput == null) {
+        alert("Please enter initials")
+    } else {
+        createHS(highScoreObj);
+
+        document.querySelector("input[name='initials']").value = "";
+
+        alert("Thank You for Playing!");
+        toStart();
+    }
 });
-startGame.addEventListener("click", resetTimeLeft)
+startGame.addEventListener("click", resetTimeLeft);
 backToStart.addEventListener("click", toStart);
 
 loadHighScore();
 
-//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED. 2. ADD IF STATEMENT IF NO RADIO BUTTONS ARE CLICKED. 3. ADD IF STATEMENT IF NO INITIALS ARE ENTERED. 4. CLEAR INITIALS AND SCORE AFTER SUBMIT. 5. ADD IF STATEMENT IF NO SCORE IS PRESENT
+//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED(doesn't break the game). 2. RIGHT OR WRONG NOTIFICATION AFTER CHOOSING ANSWER. 3. ORDER HIGH SCORE BY HIGHEST TO LOWEST
 

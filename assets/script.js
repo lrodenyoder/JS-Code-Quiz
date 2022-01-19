@@ -2,7 +2,7 @@
 var timerEl = document.getElementById("countdown");
 var entireQuestionEl = document.getElementById("question-content-wrapper");
 var scoreListEl = document.getElementById("scores");
-var timeLeft = 50;
+var timeLeft = 75;
 var playerScore = [];
 var HSidCounter = 0;
 var HSarray = [];
@@ -28,14 +28,90 @@ var backToStart = document.getElementById("back-to-start");
 //question array
 var questions = [
   {
-    question: "choose first answer",
-    answers: ["choose me", "wrong", "wrong", "wrong"],
-    correctAnswer: "choose me",
+    question: "What is NOT a type of JavaScript variable?",
+    answers: ["String", "Words", "BigInt", "Number"],
+    correctAnswer: "Words",
   },
   {
-    question: "choose second answer",
-    answers: ["wrong", "choose me2", "wrong", "wrong"],
-    correctAnswer: "choose me2",
+    question:
+      "String values must be enclosed within ______ when being assigned to variables.",
+    answers: ["Quotes", "Commas", "Curly brackets", "Parenthesis"],
+    correctAnswer: "Quotes",
+  },
+  {
+    question: "How would you write 'Hello World' in a window alert?",
+    answers: [
+      "message('Hello World');",
+      "alert(Hello World);",
+      "alert('Hello World');",
+      "windowalert('Hello World');",
+    ],
+    correctAnswer: "alert('Hello World');",
+  },
+  {
+    question: "How do you add a comment in JavaScript?",
+    answers: [
+      "*This is a comment",
+      "//This is a comment",
+      "'This is a comment'",
+      "*This is a comment",
+    ],
+    correctAnswer: "//This is a comment",
+  },
+  {
+    question: "What is the correct way to write a JavaScript array?",
+    answers: [
+      "var days = [Monday, Tuesday, Wednesday]",
+      "var days = ['Monday' 'Tuesday' 'Wednesday']",
+      "var days = {'Monday', 'Tuesday', 'Wednesday'}",
+      "var days = ['Monday', 'Tuesday', 'Wednesday']",
+    ],
+    correctAnswer: "var days = ['Monday', 'Tuesday', 'Wednesday']",
+  },
+  {
+    question: "How is a JavaScript variable declared?",
+    answers: [
+      "var variableName",
+      "variable variableName",
+      "v variableName",
+      "declareVariable variableName",
+    ],
+    correctAnswer: "var variableName",
+  },
+  {
+    question: "What operator is used to assign a value to a variable?",
+    answers: ["+", "=", "-", "=="],
+    correctAnswer: "=",
+  },
+  {
+    question: "How do you call a function named randomFunction?",
+    answers: [
+      "call randomFunction()",
+      "function randomFunction()",
+      "randomFunction()",
+      "!randomFunction()",
+    ],
+    correctAnswer: "randomFunction()",
+  },
+  {
+    question: "How do you get the DOM element with id in JavaScript?",
+    answers: [
+      "window.getElementById(...)",
+      "document.getId(...)",
+      "getElementById(...)",
+      "document.getElementById(...)",
+    ],
+    correctAnswer: "document.getElementById(...)",
+  },
+  {
+    question: "Arrays in JavaScript can be used to store...",
+    answers: [
+      "Other arrays",
+      "Numbers and Strings",
+      "Objects",
+      "All of the above",
+    ],
+    correctAnswer: "All of the above",
   },
 ];
 
@@ -199,11 +275,13 @@ var checkAnswer = function () {
             indexNumber++;
             chooseOption.style.display = "none";
             rightOption.style.display = "flex";
+            wrongOption.style.display = "none";
         } else if (answer.checked && answer.value !== currentCorrectAnswer) {
             timeLeft -= 5;
             indexNumber++;
             chooseOption.style.display = "none";
             wrongOption.style.display = "flex";
+            rightOption.style.display = "none";
         }
     })
 };
@@ -292,7 +370,7 @@ var toStart = function () {
 
 //RESET TIME LEFT FOR NEW GAME
 var resetTimeLeft = function () {
-    timeLeft = 50;
+    timeLeft = 75;
 };
 
 
@@ -330,5 +408,5 @@ backToStart.addEventListener("click", toStart);
 
 loadHighScore();
 
-//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED(doesn't break the game).
+//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED(doesn't break the game). 2. ADD ACTUAL QUESTIONS. 3. SET FINAL TIMER LENGTH. 4. README
 

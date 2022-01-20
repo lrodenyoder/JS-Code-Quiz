@@ -34,7 +34,7 @@ button {
     transition: 0.3s;
 }
 
-button:hover{
+button:hover {
     background-color: lightsalmon;
     transition: 0.3s;
 }
@@ -48,23 +48,23 @@ button:hover{
     text-shadow: 1px 1px 4px lightsalmon;
 }
 
-.view-hs:hover{
+.view-hs:hover {
     text-decoration: underline;
 }
 
-.code-title{
+.code-title {
     text-align: center;
     font-size: 24px;
     margin: 15px;
 }
 
-.code-intro{
+.code-intro {
     text-align: center;
     margin: 10px;
 
 }
 
-.start-quiz-btn-wrapper{
+.start-quiz-btn-wrapper {
     display: flex;
     justify-content: center;
 }
@@ -94,9 +94,10 @@ button:hover{
 .hs-li {
     border-radius: 10px;
     font-weight: bold;
+    margin: 10px 0 10px 0;
 }
 
-.button-wrapper{
+.button-wrapper {
     display: flex;
     justify-content: space-evenly;
     margin: 15px;
@@ -112,8 +113,7 @@ button:hover{
     display: none;
 }
 
-
-.display-content-wrapper{
+.display-content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -125,7 +125,7 @@ button:hover{
     line-height: 1.4;
 }
 
-.end-screen-header{
+.end-screen-header {
     text-align: center;
 }
 
@@ -213,17 +213,15 @@ ul li {
     display: none;
 }
 
-.choose-option-wrapper p, .wrong-option-wrapper p{
+.choose-option-wrapper p, .wrong-option-wrapper p {
     color: red;
     font-weight: bold;
 }
 
-.right-option-wrapper p{
+.right-option-wrapper p {
     color: green;
     font-weight: bold;
 }
-
-
 
 /* ALL QUESTIONS ANSWERED & TIMEOUT STYLE */
 .end-of-quiz-overlay, .timeout-overlay {

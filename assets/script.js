@@ -16,7 +16,7 @@ var questionScreenEl = document.getElementById("question-screen");
 var timeOutScreenEl = document.getElementById("time-out");
 var endScreenEl = document.getElementById("end-screen");
 var questionsFinishedEl = document.getElementById("questions-answered");
-var HSScreenEl = document.getElementById("high-score");
+var HSScreenEl = document.getElementById("high-score-wrapper");
 //buttons
 var startGameBtn = document.getElementById("start-game");
 var viewHSBtn = document.getElementById("view-hs");
@@ -311,7 +311,7 @@ var sendScore = function (scoreObj) {
 var createHS = function (highScoreObj) {
     var HSItemEl = document.createElement("li");
     HSItemEl.setAttribute("data-hs-id", HSidCounter);
-    HSItemEl.className = "high-score";
+    HSItemEl.className = "hs-li";
     HSItemEl.textContent = highScoreObj.initials + "............" + highScoreObj.score;
     scoreListEl.appendChild(HSItemEl);
 

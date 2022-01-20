@@ -168,9 +168,9 @@ button:hover {
 }
 
 .timer-wrapper {
-    border: 2px solid black;
     width: 175px;
     align-self: flex-end;
+    margin: 5px;
 }
 
 .question-content-wrapper {

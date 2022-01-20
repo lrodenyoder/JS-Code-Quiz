@@ -1,15 +1,15 @@
 //VARIABLES
+var HSidCounter = 0;
+var indexNumber = 0;
+var timeLeft = 80;
+var playerScore = [];
+var HSarray = [];
 var timerEl = document.getElementById("countdown");
 var entireQuestionEl = document.getElementById("question-content-wrapper");
 var scoreListEl = document.getElementById("scores");
-var timeLeft = 75;
-var playerScore = [];
-var HSidCounter = 0;
-var HSarray = [];
-var indexNumber = 0;
-var chooseOption = document.querySelector(".choose-option-wrapper");
-var rightOption = document.querySelector(".right-option-wrapper");
-var wrongOption = document.querySelector(".wrong-option-wrapper");
+var chooseOptionEl = document.querySelector(".choose-option-wrapper");
+var rightOptionEl = document.querySelector(".right-option-wrapper");
+var wrongOptionEl = document.querySelector(".wrong-option-wrapper");
 //pages
 var beginScreenEl = document.getElementById("begin-screen");
 var questionScreenEl = document.getElementById("question-screen");
@@ -18,100 +18,99 @@ var endScreenEl = document.getElementById("end-screen");
 var questionsFinishedEl = document.getElementById("questions-answered");
 var HSScreenEl = document.getElementById("high-score");
 //buttons
-var startGame = document.getElementById("start-game");
-var viewHS = document.getElementById("view-hs");
-var clearStorage = document.getElementById("clear-scores");
-var nextQuestion = document.getElementById("next-question");
-var toResults = document.getElementById("view-result");
-var submitScore = document.getElementById("submit-hs");
-var backToStart = document.getElementById("back-to-start");
+var startGameBtn = document.getElementById("start-game");
+var viewHSBtn = document.getElementById("view-hs");
+var clearStorageBtn = document.getElementById("clear-scores");
+var nextQuestionBtn = document.getElementById("next-question");
+var toResultsBtn = document.getElementById("view-result");
+var submitScoreBtn = document.getElementById("submit-hs");
+var backToStartBtn = document.getElementById("back-to-start");
 //question array
 var questions = [
   {
-    question: "What is NOT a type of JavaScript variable?",
-    answers: ["String", "Words", "BigInt", "Number"],
-    correctAnswer: "Words",
+    question: "1. What is NOT a type of JavaScript variable?",
+    answers: [" String", " Words", " BigInt", " Number"],
+    correctAnswer: " Words",
   },
   {
-    question:
-      "String values must be enclosed within ______ when being assigned to variables.",
-    answers: ["Quotes", "Commas", "Curly brackets", "Parenthesis"],
-    correctAnswer: "Quotes",
+    question: "2. String values must be enclosed within ______ when being assigned to variables.",
+    answers: [" Quotes", " Commas", " Curly brackets", " Parenthesis"],
+    correctAnswer: " Quotes",
   },
   {
-    question: "How would you write 'Hello World' in a window alert?",
+    question: "3. How would you write 'Hello World' in a window alert?",
     answers: [
-      "message('Hello World');",
-      "alert(Hello World);",
-      "alert('Hello World');",
-      "windowalert('Hello World');",
+      " message('Hello World');",
+      " alert(Hello World);",
+      " alert('Hello World');",
+      " windowalert('Hello World');",
     ],
-    correctAnswer: "alert('Hello World');",
+    correctAnswer: " alert('Hello World');",
   },
   {
-    question: "How do you add a comment in JavaScript?",
+    question: "4. How do you add a comment in JavaScript?",
     answers: [
-      "*This is a comment",
-      "//This is a comment",
-      "'This is a comment'",
-      "*This is a comment",
+      " *This is a comment",
+      " //This is a comment",
+      " 'This is a comment'",
+      " *This is a comment",
     ],
-    correctAnswer: "//This is a comment",
+    correctAnswer: " //This is a comment",
   },
   {
-    question: "What is the correct way to write a JavaScript array?",
+    question: "5. What is the correct way to write a JavaScript array?",
     answers: [
-      "var days = [Monday, Tuesday, Wednesday]",
-      "var days = ['Monday' 'Tuesday' 'Wednesday']",
-      "var days = {'Monday', 'Tuesday', 'Wednesday'}",
-      "var days = ['Monday', 'Tuesday', 'Wednesday']",
+      " var days = [Monday, Tuesday, Wednesday]",
+      " var days = ['Monday' 'Tuesday' 'Wednesday']",
+      " var days = {'Monday', 'Tuesday', 'Wednesday'}",
+      " var days = ['Monday', 'Tuesday', 'Wednesday']",
     ],
-    correctAnswer: "var days = ['Monday', 'Tuesday', 'Wednesday']",
+    correctAnswer: " var days = ['Monday', 'Tuesday', 'Wednesday']",
   },
   {
-    question: "How is a JavaScript variable declared?",
+    question: "6. How is a JavaScript variable declared?",
     answers: [
-      "var variableName",
-      "variable variableName",
-      "v variableName",
-      "declareVariable variableName",
+      " var variableName",
+      " variable variableName",
+      " v variableName",
+      " declareVariable variableName",
     ],
-    correctAnswer: "var variableName",
+    correctAnswer: " var variableName",
   },
   {
-    question: "What operator is used to assign a value to a variable?",
-    answers: ["+", "=", "-", "=="],
-    correctAnswer: "=",
+    question: "7. What operator is used to assign a value to a variable?",
+    answers: [" +", " =", " -", " =="],
+    correctAnswer: " =",
   },
   {
-    question: "How do you call a function named randomFunction?",
+    question: "8. How do you call a function named randomFunction?",
     answers: [
-      "call randomFunction()",
-      "function randomFunction()",
-      "randomFunction()",
-      "!randomFunction()",
+      " call randomFunction()",
+      " function randomFunction()",
+      " randomFunction()",
+      " !randomFunction()",
     ],
-    correctAnswer: "randomFunction()",
+    correctAnswer: " randomFunction()",
   },
   {
-    question: "How do you get the DOM element with id in JavaScript?",
+    question: "9. How do you get the DOM element with id in JavaScript?",
     answers: [
-      "window.getElementById(...)",
-      "document.getId(...)",
-      "getElementById(...)",
-      "document.getElementById(...)",
+      " window.getElementById(...)",
+      " document.getId(...)",
+      " getElementById(...)",
+      " document.getElementById(...)",
     ],
-    correctAnswer: "document.getElementById(...)",
+    correctAnswer: " document.getElementById(...)",
   },
   {
-    question: "Arrays in JavaScript can be used to store...",
+    question: "10. Arrays in JavaScript can be used to store...",
     answers: [
-      "Other arrays",
-      "Numbers and Strings",
-      "Objects",
-      "All of the above",
+      " Other arrays",
+      " Numbers and Strings",
+      " Objects",
+      " All of the above",
     ],
-    correctAnswer: "All of the above",
+    correctAnswer: " All of the above",
   },
 ];
 
@@ -137,8 +136,8 @@ var goToQuestions = function () {
     questionScreenEl.style.display = "flex";
 
     
-    rightOption.style.display = "none";
-    wrongOption.style.display = "none";
+    rightOptionEl.style.display = "none";
+    wrongOptionEl.style.display = "none";
 
     createQuestion();
     startTimer();
@@ -148,6 +147,20 @@ var goToQuestions = function () {
 var goToHS = function () {
     HSScreenEl.style.display = "block";
     beginScreenEl.style.display = "none";
+};
+
+//FROM ALL QUESTIONS ANSWERED SCREEN TO END SCREEN
+var goToEnd = function () {
+    questionScreenEl.style.display = "none";
+    questionsFinishedEl.style.display = "flex";
+    
+    sendScore();
+};
+
+//FROM END SCREEN TO RESULTS SCREEN
+var goToResults = function () {
+    questionsFinishedEl.style.display = "none";
+    endScreenEl.style.display = "flex";
 };
 
 //START COUNTDOWN WHEN QUESTION SCREEN IS LOADED
@@ -164,19 +177,19 @@ var startTimer = function () {
             clearInterval(timeInterval);
 
             timeOut();
-        }
+        };
 
         if (indexNumber > questions.length - 1) {
           clearInterval(timeInterval);
-        }
+        };
 
     }, 1000);
 };
 
 //GO TO TIME OUT PAGE WHEN TIMER = 0
 var timeOut = function () {
-        questionScreenEl.style.display = "none";
-        timeOutScreenEl.style.display = "flex";
+    questionScreenEl.style.display = "none";
+    timeOutScreenEl.style.display = "flex";
 };
 
 //GET QUESTION/ANSWERS FROM QUESTIONS ARRAY AND PUSH TO SCREEN
@@ -188,7 +201,7 @@ var createQuestion = function () {
         questionWrapper.setAttribute("id", "game-questions-wrapper");
 
         //create <h1>
-        var displayQuestionEl = document.createElement("h1")
+        var displayQuestionEl = document.createElement("h1");
         displayQuestionEl.setAttribute("id", "display-question");
 
         //push current question to <h1></h1>
@@ -198,7 +211,6 @@ var createQuestion = function () {
         questionWrapper.appendChild(displayQuestionEl);
         entireQuestionEl.appendChild(questionWrapper);
     
-
         // //create list as container for answers
         var gameQuestionsWrapper = document.createElement("div");
         gameQuestionsWrapper.setAttribute("id", "gameQuestionsWrapper");
@@ -206,7 +218,7 @@ var createQuestion = function () {
         var answerList = document.createElement("ul");
         answerList.setAttribute("id", "answerList");
 
-        gameQuestionsWrapper.appendChild(answerList)
+        gameQuestionsWrapper.appendChild(answerList);
         entireQuestionEl.appendChild(gameQuestionsWrapper);
 
         // //create list items to contain answers and push them to the screen
@@ -214,20 +226,19 @@ var createQuestion = function () {
             var listItem = document.createElement("li");
 
             var radioButton = document.createElement("INPUT");
-            radioButton.setAttribute("type", "radio")
-            radioButton.setAttribute("class", "radio-button")
+            radioButton.setAttribute("type", "radio");
+            radioButton.setAttribute("class", "radio-button");
             radioButton.setAttribute("id", "answer-" + i);
             radioButton.setAttribute("name", "answer");
             radioButton.setAttribute("value", currentQuestion.answers[i]);
 
             var radioLabel = document.createElement("LABEL");
             radioLabel.setAttribute("for", "answer-" + i);
-            radioLabel.setAttribute("class", "radio-label")
+            radioLabel.setAttribute("class", "radio-label");
             radioLabel.setAttribute("id", "answer-" + i + "-label");
             radioLabel.setAttribute("value", currentQuestion.answers[i]);
             radioLabel.innerHTML = currentQuestion.answers[i];
        
-        
             listItem.appendChild(radioButton);
             listItem.appendChild(radioLabel);
             answerList.appendChild(listItem);  
@@ -240,65 +251,48 @@ var handleNextQuestion = function () {
     
     if (indexNumber > questions.length - 1) {
         goToEnd();
-    }
+    };
     
     if (timeLeft > 0) {
         reset();
         createQuestion();
-    }
+    };
 };
 
 //CHECKS IF ANSWER IS RIGHT OR WRONG
 var checkAnswer = function () {
-  
     var currentQuestion = questions[indexNumber];
     var currentCorrectAnswer = currentQuestion.correctAnswer;
-    var answers = document.getElementsByName("answer")
+    var answers = document.getElementsByName("answer");
     let correctOption = null;
 
     //GETS CORRECT ANSWER FROM ARRAY
     answers.forEach((answer) => {
         if (answer.value === currentCorrectAnswer) {
             correctOption = answer.labels[0].id;
-        }
-    })
-
+        };
+    });
 
     //IF NOTHING IS SELECTED
     if (answers[0].checked == false && answers[1].checked == false && answers[2].checked == false && answers[3].checked == false) {
-        chooseOption.style.display = "flex";
-    }
+        chooseOptionEl.style.display = "flex";
+    };
 
     //RIGHT OR WRONG
     answers.forEach((answer) => {
         if (answer.checked === true && answer.value === currentCorrectAnswer) {
             indexNumber++;
-            chooseOption.style.display = "none";
-            rightOption.style.display = "flex";
-            wrongOption.style.display = "none";
+            chooseOptionEl.style.display = "none";
+            rightOptionEl.style.display = "flex";
+            wrongOptionEl.style.display = "none";
         } else if (answer.checked && answer.value !== currentCorrectAnswer) {
-            timeLeft -= 5;
+            timeLeft -= 10;
             indexNumber++;
-            chooseOption.style.display = "none";
-            wrongOption.style.display = "flex";
-            rightOption.style.display = "none";
-        }
-    })
-};
-
-//FROM ALL QUESTIONS ANSWERED SCREEN TO END SCREEN
-var goToEnd = function () {
-    
-    questionScreenEl.style.display = "none";
-    questionsFinishedEl.style.display = "flex";
-    
-    sendScore();
-};
-
-//FROM END SCREEN TO RESULTS SCREEN
-var goToResults = function () {
-    questionsFinishedEl.style.display = "none";
-    endScreenEl.style.display = "flex";
+            chooseOptionEl.style.display = "none";
+            wrongOptionEl.style.display = "flex";
+            rightOptionEl.style.display = "none";
+        };
+    });
 };
 
 //PUSH SCORE TO SCREEN
@@ -328,8 +322,6 @@ var createHS = function (highScoreObj) {
     saveHighScore();
 
     HSidCounter++;
-
-   
 };
 
 //SAVE HS TO LOCAL STORAGE
@@ -343,7 +335,7 @@ var loadHighScore = function () {
 
     if (!savedHSarray) {
         return false;
-    }
+    };
 
     savedHSarray = JSON.parse(savedHSarray);
 
@@ -355,9 +347,7 @@ var loadHighScore = function () {
     //PUSHES SAVED ARRAY THROUGH CREATEHS()
     for (var i = 0; i < savedHSarray.length; i++) {
         createHS(savedHSarray[i]);
-    }
-
-    
+    };  
 };
 
 //TO BEGINNING SCREEN
@@ -370,18 +360,17 @@ var toStart = function () {
 
 //RESET TIME LEFT FOR NEW GAME
 var resetTimeLeft = function () {
-    timeLeft = 75;
+    timeLeft = 80;
 };
 
 
-
 //EVENT LISTENERS
-clearStorage.addEventListener("click", clearLocalStorage);
-startGame.addEventListener("click", goToQuestions);
-viewHS.addEventListener("click", goToHS);
-nextQuestion.addEventListener("click", handleNextQuestion);
-toResults.addEventListener("click", goToResults);
-submitScore.addEventListener("click", function (event) {
+clearStorageBtn.addEventListener("click", clearLocalStorage);
+startGameBtn.addEventListener("click", goToQuestions);
+viewHSBtn.addEventListener("click", goToHS);
+nextQuestionBtn.addEventListener("click", handleNextQuestion);
+toResultsBtn.addEventListener("click", goToResults);
+submitScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     var initialInput = document.querySelector("input[name='initials']").value;
@@ -392,21 +381,17 @@ submitScore.addEventListener("click", function (event) {
     };
 
     if (initialInput == "" || initialInput == null) {
-        alert("Please enter initials")
+        alert("Please Enter Your name!");
     } else {
         createHS(highScoreObj);
 
         document.querySelector("input[name='initials']").value = "";
 
         alert("Thank You for Playing!");
-        //toStart();
         location.reload();
-    }
+    };
 });
-startGame.addEventListener("click", resetTimeLeft);
-backToStart.addEventListener("click", toStart);
+startGameBtn.addEventListener("click", resetTimeLeft);
+backToStartBtn.addEventListener("click", toStart);
 
 loadHighScore();
-
-//TO FIX: 1. CREATEQUESTION() RUNNING AFTER ALL QUESTIONS ANSWERED(doesn't break the game). 2. ADD ACTUAL QUESTIONS. 3. SET FINAL TIMER LENGTH. 4. README
-
